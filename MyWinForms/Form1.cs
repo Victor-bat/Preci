@@ -26,19 +26,32 @@ namespace MyWinForms
         private void LoadFileNavigation()
         {
             LoadNavigationControls(new Control[] { uploadAsc, uploadDbc });
+            contentPanel.Controls.Clear(); // Clear content when switching tabs
         }
 
         // Load Home Tab Navigation Buttons
         private void LoadHomeNavigation()
         {
             LoadNavigationControls(new Control[] { startButton, stopButton });
+            DisplayHomePage();
         }
 
         // Load Analysis Tab Navigation Buttons
         private void LoadAnalysisNavigation()
         {
             LoadNavigationControls(new Control[] { filterButton, sortButton });
+            contentPanel.Controls.Clear(); // Clear content when switching tabs
         }
+
+        // Display HomePage inside Form1 (Instead of a separate window)
+
+        private void DisplayHomePage()
+{
+    contentPanel.Controls.Clear();
+    HomePage homePage = new HomePage();
+    homePage.Dock = DockStyle.Fill; // Make it fill the content panel
+    contentPanel.Controls.Add(homePage);
+}
 
         // Apply Dark Mode or Light Mode
         private void ApplyTheme()
@@ -53,7 +66,6 @@ namespace MyWinForms
             menuStrip1.ForeColor = textColor;
             navBarPanel.BackColor = navColor;
 
-            // Update Button Styles
             foreach (Control control in navBarPanel.Controls)
             {
                 if (control is Button button)
@@ -74,7 +86,7 @@ namespace MyWinForms
             ApplyTheme();
         }
 
-        // Event Handlers for Menu Clicks
+        // Menu Click Handlers
         private void fileToolStripMenuItem_Click(object sender, EventArgs e) => LoadFileNavigation();
         private void homeToolStripMenuItem_Click(object sender, EventArgs e) => LoadHomeNavigation();
         private void analysisToolStripMenuItem_Click(object sender, EventArgs e) => LoadAnalysisNavigation();

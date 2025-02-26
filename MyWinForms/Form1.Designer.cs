@@ -16,6 +16,7 @@
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button filterButton;
         private System.Windows.Forms.Button sortButton;
+        private System.Windows.Forms.Panel contentPanel; // Panel to hold HomePage
 
         private void InitializeComponent()
         {
@@ -34,6 +35,16 @@
             sortButton = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
+
+            contentPanel = new Panel();
+            contentPanel.Dock = DockStyle.Fill; // Make it fill Form1
+            contentPanel.Location = new System.Drawing.Point(0, 88);
+            contentPanel.Name = "contentPanel";
+            contentPanel.Size = new System.Drawing.Size(500, 312);
+            contentPanel.TabIndex = 2;
+
+            // Add contentPanel to the Form
+            Controls.Add(contentPanel);
 
             // MenuStrip
             menuStrip1.ImageScalingSize = new Size(20, 20);

@@ -1,0 +1,17 @@
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\bin\Debug\net6.0-windows\MyWinForms.exe
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\bin\Debug\net6.0-windows\MyWinForms.deps.json
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\bin\Debug\net6.0-windows\MyWinForms.runtimeconfig.json
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\bin\Debug\net6.0-windows\MyWinForms.dll
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\bin\Debug\net6.0-windows\MyWinForms.pdb
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.csproj.AssemblyReference.cache
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.Form1.resources
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.csproj.GenerateResource.cache
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.AssemblyInfoInputs.cache
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.AssemblyInfo.cs
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.csproj.CoreCompileInputs.cache
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.dll
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\refint\MyWinForms.dll
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.pdb
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\MyWinForms.genruntimeconfig.cache
+C:\Users\CSD\Desktop\pv\Preci\MyWinForms\obj\Debug\net6.0-windows\ref\MyWinForms.dll
