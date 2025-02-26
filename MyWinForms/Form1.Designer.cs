@@ -16,11 +16,9 @@
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button filterButton;
         private System.Windows.Forms.Button sortButton;
-<<<<<<< HEAD
+
         private System.Windows.Forms.Panel contentPanel; // Panel to hold HomePage
 
-=======
->>>>>>> 645fe4d8fbec2f68346ebfd03863fc3e0a9f7902
         private void InitializeComponent()
         {
             menuStrip1 = new MenuStrip();

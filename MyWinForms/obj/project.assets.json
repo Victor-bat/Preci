@@ -8,43 +8,31 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-<<<<<<< HEAD
-    "C:\\Users\\CSD\\.nuget\\packages\\": {}
-=======
     "C:\\Users\\Admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
->>>>>>> 645fe4d8fbec2f68346ebfd03863fc3e0a9f7902
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\CSD\\Desktop\\pv\\Preci\\MyWinForms\\MyWinForms.csproj",
-      "projectName": "MyWinForms",
-      "projectPath": "C:\\Users\\CSD\\Desktop\\pv\\Preci\\MyWinForms\\MyWinForms.csproj",
-      "packagesPath": "C:\\Users\\CSD\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CSD\\Desktop\\pv\\Preci\\MyWinForms\\obj\\",
-=======
       "projectUniqueName": "C:\\Users\\Admin\\Desktop\\preci\\MyWinForms\\MyWinForms.csproj",
       "projectName": "MyWinForms",
       "projectPath": "C:\\Users\\Admin\\Desktop\\preci\\MyWinForms\\MyWinForms.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Admin\\Desktop\\preci\\MyWinForms\\obj\\",
->>>>>>> 645fe4d8fbec2f68346ebfd03863fc3e0a9f7902
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-<<<<<<< HEAD
-        "C:\\Users\\CSD\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
->>>>>>> 645fe4d8fbec2f68346ebfd03863fc3e0a9f7902
       ],
       "originalTargetFrameworks": [
         "net6.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -57,9 +45,6 @@
         "warnAsError": [
           "NU1605"
         ]
-<<<<<<< HEAD
-      }
-=======
       },
       "restoreAuditProperties": {
         "enableAudit": "true",
@@ -67,7 +52,6 @@
         "auditMode": "direct"
       },
       "SdkAnalysisLevel": "9.0.100"
->>>>>>> 645fe4d8fbec2f68346ebfd03863fc3e0a9f7902
     },
     "frameworks": {
       "net6.0-windows7.0": {
@@ -91,11 +75,7 @@
             "privateAssets": "none"
           }
         },
-<<<<<<< HEAD
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.428\\RuntimeIdentifierGraph.json"
-=======
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
->>>>>>> 645fe4d8fbec2f68346ebfd03863fc3e0a9f7902
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
