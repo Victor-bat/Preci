@@ -9,6 +9,11 @@ namespace MyWinForms
     public partial class Form1 : Form
     {
         private bool isDarkMode = false;
+        private bool isParsing = false; // Controls whether ASC parsing should continue
+        private HomePage homePage; // Store HomePage instance globally
+
+        private string uploadedAscFilePath = "";
+
 
         public Form1()
         {
@@ -49,11 +54,16 @@ namespace MyWinForms
 
         private void DisplayHomePage()
         {
+            if (homePage == null) // Only create a new HomePage if it doesn’t exist
+            {
+                homePage = new HomePage();
+                homePage.Dock = DockStyle.Fill;
+            }
+
             contentPanel.Controls.Clear();
-            HomePage homePage = new HomePage();
-            homePage.Dock = DockStyle.Fill; // Make it fill the content panel
             contentPanel.Controls.Add(homePage);
         }
+
 
         // Apply Dark Mode or Light Mode
         private void ApplyTheme()
@@ -93,23 +103,13 @@ namespace MyWinForms
         private void homeToolStripMenuItem_Click(object sender, EventArgs e) => LoadHomeNavigation();
         private void analysisToolStripMenuItem_Click(object sender, EventArgs e) => LoadAnalysisNavigation();
         // File Upload Handlers
-        private async void uploadAsc_Click(object sender, EventArgs e)
+        private void uploadAsc_Click(object sender, EventArgs e)
         {
             openFileDialog.Filter = "ASC Files (*.asc)|*.asc";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string filePath = openFileDialog.FileName;
-                MessageBox.Show("ASC File Uploaded: " + filePath);
-
-                // Ensure HomePage is loaded
-                if (contentPanel.Controls[0] is HomePage homePage)
-                {
-                    // Clear previous data before loading new messages
-                    homePage.ClearMessages();
-
-                    // Parse ASC file and send each message to HomePage
-                    await AscParser.ParseAscFile(filePath, homePage.AddExactCanMessage);
-                }
+                uploadedAscFilePath = openFileDialog.FileName;
+                MessageBox.Show("ASC File Uploaded: " + uploadedAscFilePath);
             }
         }
 
@@ -123,14 +123,45 @@ namespace MyWinForms
         }
 
         // Start & Stop Handlers
-        private void startButton_Click(object sender, EventArgs e)
+        private async void startButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("CAN Analysis Started!");
+            if (string.IsNullOrEmpty(uploadedAscFilePath))
+            {
+                MessageBox.Show("Please upload an ASC file first!");
+                return;
+            }
+
+            isParsing = true; // Allow parsing when Start is clicked
+
+            if (homePage == null) // Ensure HomePage exists
+            {
+                homePage = new HomePage();
+                homePage.Dock = DockStyle.Fill;
+            }
+
+            contentPanel.Controls.Clear();
+            contentPanel.Controls.Add(homePage);
+
+            homePage.ClearMessages(); // Clear previous messages
+
+            // Parse ASC file and update HomePage (if isParsing is true)
+            await AscParser.ParseAscFile(uploadedAscFilePath, message =>
+            {
+                if (isParsing)
+                {
+                    homePage.AddExactCanMessage(message);
+                }
+            });
+
+            MessageBox.Show("ASC File Parsing Completed!");
         }
+
+
 
         private void stopButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("CAN Analysis Stopped!");
+            isParsing = false; // Stop data updates
+            MessageBox.Show("Stopped ASC Data Display!");
         }
 
         // Analysis Handlers
