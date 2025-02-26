@@ -16,9 +16,6 @@
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button filterButton;
         private System.Windows.Forms.Button sortButton;
-        private System.Windows.Forms.Panel leftPanel;
-        private System.Windows.Forms.Panel rightPanel;
-
         private void InitializeComponent()
         {
             menuStrip1 = new MenuStrip();
@@ -150,18 +147,6 @@
             ResumeLayout(false);
             PerformLayout();
 
-            // Left Panel (for the first embedded form)
-            leftPanel = new Panel();
-            leftPanel.Dock = DockStyle.Left;
-            leftPanel.Width = this.ClientSize.Width / 2; // Half of the window
-            leftPanel.BackColor = Color.LightGray;
-            Controls.Add(leftPanel);
-
-            // Right Panel (for the second embedded form)
-            rightPanel = new Panel();
-            rightPanel.Dock = DockStyle.Fill; // Remaining space
-            rightPanel.BackColor = Color.White;
-            Controls.Add(rightPanel);
 
         }
     }
