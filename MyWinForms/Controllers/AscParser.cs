@@ -1,13 +1,11 @@
-﻿using PERICAN.Models;
+﻿using MyWinForms.Models; // Updated namespace to match your project
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace PERICAN.Controllers
+namespace MyWinForms.Controllers // Updated namespace
 {
     public class AscParser
     {
@@ -18,7 +16,7 @@ namespace PERICAN.Controllers
                 using (StreamReader reader = new StreamReader(filePath))
                 {
                     string line;
-                    // Improved regex pattern to better match ASC format
+                    // Regex pattern to match ASC format
                     var pattern = @"^(\d+\.?\d*)\s+\d+\s+([0-9A-Fa-f]+x?)\s+(Rx|Tx)\s+d\s+(\d+)\s+((?:[0-9A-Fa-f]{2}\s*)+)";
 
                     while ((line = await reader.ReadLineAsync()) != null)
@@ -31,7 +29,7 @@ namespace PERICAN.Controllers
                                 string canIdStr = match.Groups[2].Value;
                                 bool isExtended = canIdStr.EndsWith("x", StringComparison.OrdinalIgnoreCase);
 
-                                // Remove the 'x' suffix before parsing
+                                // Remove 'x' suffix before parsing
                                 canIdStr = isExtended ? canIdStr.Substring(0, canIdStr.Length - 1) : canIdStr;
 
                                 var message = new CanMessageModel
@@ -41,11 +39,10 @@ namespace PERICAN.Controllers
                                     IsExtended = isExtended,
                                     Direction = match.Groups[3].Value,
                                     DataLength = int.Parse(match.Groups[4].Value),
-                                    // Normalize the data bytes format (ensure consistent spacing)
-                                    DataBytes = NormalizeDataBytes(match.Groups[5].Value)
+                                    DataBytes = NormalizeDataBytes(match.Groups[5].Value) // Normalize byte format
                                 };
 
-                                // Validate the parsed message
+                                // Validate and send message
                                 if (ValidateMessage(message))
                                 {
                                     onMessageParsed?.Invoke(message);
@@ -63,7 +60,6 @@ namespace PERICAN.Controllers
                         }
                         else if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("date") && !line.StartsWith("base") && !line.StartsWith("//"))
                         {
-                            // Log unmatched lines that aren't comments or metadata
                             Console.WriteLine($"Unmatched line: {line}");
                         }
                     }
@@ -78,7 +74,7 @@ namespace PERICAN.Controllers
 
         private static string NormalizeDataBytes(string dataBytes)
         {
-            // Remove extra spaces and ensure consistent formatting
+            // Ensure consistent byte formatting
             return string.Join(" ",
                 Regex.Matches(dataBytes, @"[0-9A-Fa-f]{2}")
                     .Cast<Match>()
@@ -87,7 +83,6 @@ namespace PERICAN.Controllers
 
         private static bool ValidateMessage(CanMessageModel message)
         {
-            // Count actual data bytes
             int actualBytes = message.DataBytes.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
 
             if (actualBytes != message.DataLength)
@@ -96,7 +91,6 @@ namespace PERICAN.Controllers
                 return false;
             }
 
-            // Validate CAN ID range
             if (message.IsExtended)
             {
                 if (message.CanId > 0x1FFFFFFF)

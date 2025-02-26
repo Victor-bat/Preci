@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using MyWinForms.Controllers;
+using MyWinForms.Models;
 
 namespace MyWinForms
 {
@@ -46,12 +48,12 @@ namespace MyWinForms
         // Display HomePage inside Form1 (Instead of a separate window)
 
         private void DisplayHomePage()
-{
-    contentPanel.Controls.Clear();
-    HomePage homePage = new HomePage();
-    homePage.Dock = DockStyle.Fill; // Make it fill the content panel
-    contentPanel.Controls.Add(homePage);
-}
+        {
+            contentPanel.Controls.Clear();
+            HomePage homePage = new HomePage();
+            homePage.Dock = DockStyle.Fill; // Make it fill the content panel
+            contentPanel.Controls.Add(homePage);
+        }
 
         // Apply Dark Mode or Light Mode
         private void ApplyTheme()
@@ -90,14 +92,24 @@ namespace MyWinForms
         private void fileToolStripMenuItem_Click(object sender, EventArgs e) => LoadFileNavigation();
         private void homeToolStripMenuItem_Click(object sender, EventArgs e) => LoadHomeNavigation();
         private void analysisToolStripMenuItem_Click(object sender, EventArgs e) => LoadAnalysisNavigation();
-
         // File Upload Handlers
-        private void uploadAsc_Click(object sender, EventArgs e)
+        private async void uploadAsc_Click(object sender, EventArgs e)
         {
             openFileDialog.Filter = "ASC Files (*.asc)|*.asc";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("ASC File Uploaded: " + openFileDialog.FileName);
+                string filePath = openFileDialog.FileName;
+                MessageBox.Show("ASC File Uploaded: " + filePath);
+
+                // Ensure HomePage is loaded
+                if (contentPanel.Controls[0] is HomePage homePage)
+                {
+                    // Clear previous data before loading new messages
+                    homePage.ClearMessages();
+
+                    // Parse ASC file and send each message to HomePage
+                    await AscParser.ParseAscFile(filePath, homePage.AddExactCanMessage);
+                }
             }
         }
 

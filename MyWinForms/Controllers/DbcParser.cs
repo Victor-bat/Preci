@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
-using PERICAN.Models;
+using MyWinForms.Models;
 
-namespace PERICAN.Controllers
+namespace MyWinForms.Controllers
 {
     public class DbcParser
     {

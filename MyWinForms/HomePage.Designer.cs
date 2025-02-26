@@ -5,7 +5,6 @@ namespace MyWinForms
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.DataGridView dataGridViewAscii;
         private System.Windows.Forms.DataGridView dataGridViewDbc;
-        private System.Windows.Forms.Panel spacerPanel; // Spacer panel
 
         protected override void Dispose(bool disposing)
         {
@@ -19,40 +18,34 @@ namespace MyWinForms
         private void InitializeComponent()
         {
             this.dataGridViewAscii = new System.Windows.Forms.DataGridView();
-            this.dataGridViewDbc = new System.Windows.Forms.DataGridView();
-            this.spacerPanel = new System.Windows.Forms.Panel(); // Initialize spacer panel
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAscii)).BeginInit();
+            this.SuspendLayout();
 
-            // HomePage (UserControl) - Set to Dock Fill
+            // HomePage (UserControl)
             this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Padding = new System.Windows.Forms.Padding(30); // 30px spacing on all sides
+            this.Padding = new System.Windows.Forms.Padding(20); // Padding for spacing
 
-            // ASCII Table DataGridView
-            this.dataGridViewAscii.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dataGridViewAscii.Width = (this.Width - 90) / 2; // Split width between both tables
-            this.dataGridViewAscii.Margin = new System.Windows.Forms.Padding(0);
+            // DataGridView for CAN Messages
+            this.dataGridViewAscii.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewAscii.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAscii.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewAscii.AllowUserToAddRows = false;  // Disable adding rows manually
+            this.dataGridViewAscii.AllowUserToDeleteRows = false; // Prevent deletion
+            this.dataGridViewAscii.ReadOnly = true; // Read-only table
 
-            // Spacer Panel (To add space between tables)
-            this.spacerPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.spacerPanel.Width = 30; // 30px spacing between tables
+            // Define columns for CAN messages (exact match with AscParser)
+            this.dataGridViewAscii.Columns.Add("Timestamp", "Timestamp");
+            this.dataGridViewAscii.Columns.Add("CanId", "CAN ID");
+            this.dataGridViewAscii.Columns.Add("IsExtended", "Extended Frame");
+            this.dataGridViewAscii.Columns.Add("Direction", "Direction");
+            this.dataGridViewAscii.Columns.Add("DataLength", "Data Length");
+            this.dataGridViewAscii.Columns.Add("DataBytes", "Data Bytes");
 
-            // DBC Table DataGridView
-            this.dataGridViewDbc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewDbc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-
-            // Add Controls in order
-            this.Controls.Add(this.dataGridViewDbc);
-            this.Controls.Add(this.spacerPanel); // Spacer goes between tables
+            // Add Controls
             this.Controls.Add(this.dataGridViewAscii);
 
-            // Resize Event Handler for Responsive Layout
-            this.Resize += new System.EventHandler(this.HomePage_Resize);
-        }
-
-        private void HomePage_Resize(object sender, System.EventArgs e)
-        {
-            int availableWidth = this.Width - 90; // Account for padding and spacing
-            this.dataGridViewAscii.Width = availableWidth / 2;
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAscii)).EndInit();
+            this.ResumeLayout(false);
         }
     }
 }

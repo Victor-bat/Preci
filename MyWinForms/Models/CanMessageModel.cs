@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PERICAN.Models
+namespace MyWinForms.Models
 {
     public class CanMessageModel
     {

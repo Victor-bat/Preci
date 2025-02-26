@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
+using MyWinForms.Models;
 
 namespace MyWinForms
 {
@@ -57,5 +58,34 @@ namespace MyWinForms
                 MessageBox.Show("Error loading DBC file: " + ex.Message);
             }
         }
+        public void ClearMessages()
+        {
+            if (dataGridViewAscii.InvokeRequired)
+            {
+                dataGridViewAscii.Invoke(new Action(ClearMessages));
+                return;
+            }
+
+            dataGridViewAscii.Rows.Clear();
+        }
+
+        public void AddExactCanMessage(CanMessageModel message)
+        {
+            if (dataGridViewAscii.InvokeRequired)
+            {
+                dataGridViewAscii.Invoke(new Action(() => AddExactCanMessage(message)));
+                return;
+            }
+
+            dataGridViewAscii.Rows.Add(
+                message.Timestamp,      // Exact timestamp from ASC file
+                message.CanId,          // Exact CAN ID from ASC file
+                message.IsExtended,     // Whether it's an extended frame (true/false)
+                message.Direction,      // "Rx" or "Tx" (received/transmitted)
+                message.DataLength,     // Length of data bytes
+                message.DataBytes       // Exact byte data from ASC file
+            );
+        }
+
     }
 }
