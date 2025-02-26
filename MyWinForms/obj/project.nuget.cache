@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "mF0MKuNJP+FWD3RdgedUM/jMB6h2O/g9aAB5XgN39LjlvzIIWW2dDDrVRakzKewdKa50qfdxZHLGJosh9Kk8SQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\CSD\\Desktop\\pv\\Preci\\MyWinForms\\MyWinForms.csproj",
+=======
+  "dgSpecHash": "lCdAJhf6xZc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\preci\\MyWinForms\\MyWinForms.csproj",
+>>>>>>> 645fe4d8fbec2f68346ebfd03863fc3e0a9f7902
   "expectedPackageFiles": [],
   "logs": []
 }
