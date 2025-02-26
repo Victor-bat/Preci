@@ -1,0 +1,16 @@
+D:\preci\MyWinForms\bin\Debug\net9.0-windows\MyWinForms.exe
+D:\preci\MyWinForms\bin\Debug\net9.0-windows\MyWinForms.deps.json
+D:\preci\MyWinForms\bin\Debug\net9.0-windows\MyWinForms.runtimeconfig.json
+D:\preci\MyWinForms\bin\Debug\net9.0-windows\MyWinForms.dll
+D:\preci\MyWinForms\bin\Debug\net9.0-windows\MyWinForms.pdb
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.Form1.resources
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.csproj.GenerateResource.cache
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.GeneratedMSBuildEditorConfig.editorconfig
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.AssemblyInfoInputs.cache
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.AssemblyInfo.cs
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.csproj.CoreCompileInputs.cache
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.dll
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\refint\MyWinForms.dll
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.pdb
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\MyWinForms.genruntimeconfig.cache
+D:\preci\MyWinForms\obj\Debug\net9.0-windows\ref\MyWinForms.dll
