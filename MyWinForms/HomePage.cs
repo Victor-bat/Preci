@@ -1,91 +1,108 @@
 using System;
 using System.Data;
-using System.IO;
 using System.Windows.Forms;
 using MyWinForms.Models;
+using System.Collections.Generic;
 
 namespace MyWinForms
 {
     public partial class HomePage : UserControl
     {
+        private DataTable ascTable;
+        private DataTable dbcTable;
+
         public HomePage()
         {
             InitializeComponent();
+            InitializeTables();
         }
 
-        // Load ASCII File Data into the Table
-        public void LoadAsciiFile(string filePath)
+        // Initialize Tables
+        private void InitializeTables()
         {
-            try
-            {
-                DataTable asciiTable = new DataTable();
-                asciiTable.Columns.Add("Character");
-                asciiTable.Columns.Add("ASCII Value");
+            // Initialize ASC Table (Left Side)
+            ascTable = new DataTable();
+            ascTable.Columns.Add("Timestamp");
+            ascTable.Columns.Add("CAN ID");
+            ascTable.Columns.Add("Direction");
+            ascTable.Columns.Add("DLC");
+            ascTable.Columns.Add("Extended");
+            ascTable.Columns.Add("Data Bytes");
 
-                string content = File.ReadAllText(filePath);
-                foreach (char c in content)
-                {
-                    asciiTable.Rows.Add(c, (int)c);
-                }
+            dataGridViewAscii.DataSource = ascTable;
 
-                dataGridViewAscii.DataSource = asciiTable;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading ASCII file: " + ex.Message);
-            }
+            // Initialize DBC Table (Right Side)
+            dbcTable = new DataTable();
+            dbcTable.Columns.Add("Message Name");
+            dbcTable.Columns.Add("CAN ID");
+            dbcTable.Columns.Add("DLC");
+            dbcTable.Columns.Add("Signal Name");
+            dbcTable.Columns.Add("Start Bit");
+            dbcTable.Columns.Add("Length");
+            dbcTable.Columns.Add("Factor");
+            dbcTable.Columns.Add("Offset");
+            dbcTable.Columns.Add("Unit");
+
+            dataGridViewDbc.DataSource = dbcTable;
         }
 
-        // Load DBC File Data into the Table
-        public void LoadDbcFile(string filePath)
-        {
-            try
-            {
-                DataTable dbcTable = new DataTable();
-                dbcTable.Columns.Add("Line Number");
-                dbcTable.Columns.Add("Content");
-
-                string[] lines = File.ReadAllLines(filePath);
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    dbcTable.Rows.Add(i + 1, lines[i]);
-                }
-
-                dataGridViewDbc.DataSource = dbcTable;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading DBC file: " + ex.Message);
-            }
-        }
+        // Clears both tables
         public void ClearMessages()
         {
-            if (dataGridViewAscii.InvokeRequired)
-            {
-                dataGridViewAscii.Invoke(new Action(ClearMessages));
-                return;
-            }
-
-            dataGridViewAscii.Rows.Clear();
+            ascTable.Rows.Clear();
+            dbcTable.Rows.Clear();
         }
 
+        // Add ASC message to left table
         public void AddExactCanMessage(CanMessageModel message)
         {
-            if (dataGridViewAscii.InvokeRequired)
-            {
-                dataGridViewAscii.Invoke(new Action(() => AddExactCanMessage(message)));
-                return;
-            }
-
-            dataGridViewAscii.Rows.Add(
-                message.Timestamp,      // Exact timestamp from ASC file
-                message.CanId,          // Exact CAN ID from ASC file
-                message.IsExtended,     // Whether it's an extended frame (true/false)
-                message.Direction,      // "Rx" or "Tx" (received/transmitted)
-                message.DataLength,     // Length of data bytes
-                message.DataBytes       // Exact byte data from ASC file
+            ascTable.Rows.Add(
+                message.Timestamp,
+                message.CanId,
+                message.Direction,
+                message.DataLength,
+                message.IsExtended ? "Yes" : "No",
+                message.DataBytes
             );
         }
 
+        // Display parsed DBC messages & signals in right table
+        public void DisplayDbcMessages(List<DbcMessageModel> messages, List<DbcSignalModel> signals)
+        {
+            dbcTable.Rows.Clear(); // Clear previous DBC data
+
+            foreach (var message in messages)
+            {
+                // Get signals for the current message
+                var messageSignals = signals.FindAll(s => s.MessageId == message.CanId);
+
+                foreach (var signal in messageSignals)
+                {
+                    dbcTable.Rows.Add(
+                        message.MessageName,
+                        message.CanId,
+                        message.Dlc,
+                        signal.SignalName,
+                        signal.StartBit,
+                        signal.Length,
+                        signal.Factor,
+                        signal.Offset,
+                        signal.Unit
+                    );
+                }
+
+                // If no signals, still add the message row
+                if (messageSignals.Count == 0)
+                {
+                    dbcTable.Rows.Add(
+                        message.MessageName,
+                        message.CanId,
+                        message.Dlc,
+                        "No Signals",
+                        "-", "-", "-", "-", "-"
+                    );
+                }
+            }
+        }
     }
 }

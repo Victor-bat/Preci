@@ -14,6 +14,7 @@ namespace MyWinForms.Models
         public int DataLength { get; set; }
         public bool IsExtended { get; set; }
         public string DataBytes { get; set; }
+        public string DecodedSignalValue { get; set; } = string.Empty;
 
         public Dictionary<string, double> DecodedSignals { get; set; } = new Dictionary<string, double>();
 

@@ -13,6 +13,10 @@ namespace MyWinForms
         private HomePage homePage; // Store HomePage instance globally
 
         private string uploadedAscFilePath = "";
+        private string uploadedDbcFilePath = "";
+        private CancellationTokenSource cancellationTokenSource;
+
+
 
 
         public Form1()
@@ -118,7 +122,8 @@ namespace MyWinForms
             openFileDialog.Filter = "DBC Files (*.dbc)|*.dbc";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("DBC File Uploaded: " + openFileDialog.FileName);
+                uploadedDbcFilePath = openFileDialog.FileName;
+                MessageBox.Show("DBC File Uploaded: " + uploadedDbcFilePath);
             }
         }
 
@@ -130,10 +135,15 @@ namespace MyWinForms
                 MessageBox.Show("Please upload an ASC file first!");
                 return;
             }
+            if (string.IsNullOrEmpty(uploadedDbcFilePath))
+            {
+                MessageBox.Show("Please upload a DBC file first!");
+                return;
+            }
 
             isParsing = true; // Allow parsing when Start is clicked
 
-            if (homePage == null) // Ensure HomePage exists
+            if (homePage == null)
             {
                 homePage = new HomePage();
                 homePage.Dock = DockStyle.Fill;
@@ -144,24 +154,42 @@ namespace MyWinForms
 
             homePage.ClearMessages(); // Clear previous messages
 
-            // Parse ASC file and update HomePage (if isParsing is true)
-            await AscParser.ParseAscFile(uploadedAscFilePath, message =>
+            // ✅ Start parsing ASC file in a separate thread for immediate updates
+            _ = Task.Run(async () =>
             {
-                if (isParsing)
+                await AscParser.ParseAscFile(uploadedAscFilePath, message =>
                 {
-                    homePage.AddExactCanMessage(message);
+                    if (isParsing)
+                    {
+                        homePage.Invoke(new Action(() => homePage.AddExactCanMessage(message)));
+                    }
+                });
+            });
+
+            // ✅ Start parsing DBC file in a separate thread for real-time display
+            _ = Task.Run(() =>
+            {
+                try
+                {
+                    DbcParser.ParseDbcFile(uploadedDbcFilePath);
+                    homePage.Invoke(new Action(() => homePage.DisplayDbcMessages(DbcParser.Messages, DbcParser.Signals)));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error parsing DBC file: " + ex.Message);
                 }
             });
 
-            MessageBox.Show("ASC File Parsing Completed!");
+            MessageBox.Show("ASC & DBC File Parsing Started!");
         }
+
 
 
 
         private void stopButton_Click(object sender, EventArgs e)
         {
             isParsing = false; // Stop data updates
-            MessageBox.Show("Stopped ASC Data Display!");
+            MessageBox.Show("Stopped Data Display!");
         }
 
         // Analysis Handlers

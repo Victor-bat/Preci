@@ -72,6 +72,11 @@ namespace MyWinForms.Controllers // Updated namespace
             }
         }
 
+        internal static CanMessageModel ParseAscFile(string line)
+        {
+            throw new NotImplementedException();
+        }
+
         private static string NormalizeDataBytes(string dataBytes)
         {
             // Ensure consistent byte formatting
